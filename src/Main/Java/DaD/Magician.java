@@ -1,17 +1,51 @@
 package DaD;
 
+/**
+ * The type Magician.
+ */
 public class Magician extends Personnage {
-    private String spell;
+    private Spell spells[] = new Spell[NB_ATTACKS];
     private String potion;
 
-    public String getSpell() {
-        return spell;
-    }
-    public void setSpell(String pSpell) {
-        this.spell = pSpell;
+    /**
+     * Gets spell.
+     *
+     * @return the spell
+     */
+    public Spell getSpell(int slot) {
+        return spells[slot];
     }
 
-    public String toString(){
-        return super.toString() +"\n5. Spell: "+getSpell()+"\n";
+    /**
+     * Delete slot.
+     *
+     * @param slot the slot
+     */
+    public void deleteSlot(int slot){
+        spells[slot] = null;
+    }
+
+    /**
+     * Sets spell.
+     *
+     * @param pSpell the p spell
+     * @param slot   the slot
+     */
+    public void setSpell(Spell pSpell, int slot) {
+        this.spells[slot] = pSpell;
+    }
+
+    public String toString() {
+        String result = super.toString();
+        result = result + "\n5. Spells:\n";
+        for (int i = 0; i < NB_ATTACKS; i++){
+            result = result + "Slot "+(i+1)+": ";
+            if (spells[i] != null) {
+                result = result + spells[i].toString()+"\n";
+            }else{
+                result = result + "<empty slot>\n";
+            }
+        }
+        return result;
     }
 }
