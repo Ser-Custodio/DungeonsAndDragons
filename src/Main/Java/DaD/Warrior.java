@@ -51,7 +51,7 @@ public class Warrior extends Personnage {
 
 //        public Warrior() {
 //        weapon = "Sword";
-//        shield = "Shield";
+//        shield = "BoxShield";
 //    }
     public String toString() {
         String result = super.toString();

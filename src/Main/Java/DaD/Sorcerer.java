@@ -4,7 +4,7 @@ public class Sorcerer extends Enemies {
     public Sorcerer (int newDamage){
         damage = newDamage;
     }
-    public String showEnemy(){
-        return "I'm a sorcerer";
+    public String show(){
+        return "---------------> I'M A SORCERER";
     }
 }

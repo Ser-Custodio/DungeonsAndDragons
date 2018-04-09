@@ -1,7 +1,6 @@
 package DaD;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 import static java.lang.System.*;
@@ -11,14 +10,8 @@ import static java.lang.System.*;
  */
 public class First {
     private static Scanner sc = new Scanner(in);
-    protected static int position = 0;
-    protected static int mapLength = 63;
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
+
     public static void main(String[] args) {
         Integer nb = 0;
         Integer nbAta = 0;
@@ -27,7 +20,11 @@ public class First {
         String userMenu;
 
         out.println("Welcome to Dongeons and Dragons!");
+        Factory.generateMap();
+        Factory.generateEvents();
+        Factory.placeEvents();
         do {
+
             out.println("\nWhat do you want to do?\n1. Create new character\n2. View characters list\n3. Change a character\n" +
                     "4. Attack \n5. Create weapon or spell\n6. View weapons list \n7. Play\n10. Exit\n");
             userMenu = sc.nextLine();
@@ -36,6 +33,7 @@ public class First {
                     Factory.createChar(characters, nb, objects, nbAta);
                     // createChar(characters, nb, objects, nbAta);
                     nb++;
+
                     break;
                 case "2":
                     showCharsList(characters);
@@ -62,17 +60,20 @@ public class First {
                         weaponDetails(objects);
                     }
                     break;
-//                case "7":
-//                    out.println("You are in position "+position);
-//                    int rollValue = rollDie();
-//                    out.println(rollValue);
-//                    int newPosition = position + rollValue;
-//                    out.println(newPosition);
-//                    position = newPosition;
-//                    if(newPosition > 63) {
-//                        out.println("Game Over");
-//                        position = 0;
-//                    }
+                case "7":
+                    out.println("You are in position " + Factory.startPos);
+                    int rollValue = Factory.rollDie();
+                    out.println(rollValue);
+                    int newPosition = Factory.startPos + rollValue;
+                    out.println(newPosition);
+                    Factory.startPos = newPosition;
+                    if(newPosition > 63) {
+                        out.println("Game Over");
+                        Factory.startPos = 0;
+                    }
+                    break;
+//                case "8":
+//
 //                    break;
                 case "10":
                     out.println("Exiting ...");
@@ -83,11 +84,7 @@ public class First {
         } while (!userMenu.equals("10"));
     }
 
-    /**
-     * Show chars list.
-     *
-     * @param characters the characters
-     */
+
 // Shows list of characters
     public static void showCharsList(Personnage characters[]) {
         boolean noCharacters = true;
@@ -107,11 +104,6 @@ public class First {
         }
     }
 
-    /**
-     * Show weapons list.
-     *
-     * @param objects the objects
-     */
     public static void showWeaponsList(ArrayList<Attack> objects) {
         out.println("List of Weapons");
         if (objects.size() == 0) {
@@ -173,9 +165,6 @@ public class First {
             out.println("Wrong type of entry");
         }
     }
-
-
-
 }
 
 
@@ -197,35 +186,4 @@ public class First {
 //        int die = roll.nextInt(6)+1;
 //        return die;
 //    }
-
-
-//    static List<Event> map = new ArrayList<Event>();
-//
-//    public static void generateMap(){
-//        position = 0;
-//        for(int i = 0; i <= mapLength; i++){
-//            Event newMap = new Event();
-//            map.add(newMap);
-//        }
-//
-//    }
-//
-//    public static void generateEnemies(){
-//        Sorcerer[] mySorcerers = new Sorcerer[4];
-//
-//        mySorcerers[0] = new Sorcerer(75);
-//        mySorcerers[0] = new Sorcerer(50);
-//        mySorcerers[0] = new Sorcerer(25);
-//        mySorcerers[0] = new Sorcerer(15);
-//
-//        for(int i = 0; i < 4; i++){
-//            boolean sorcPlaced = false;
-//            do{
-//                int placement = new Random(mapLength-1)+1;
-//                if(map.get(placement) instanceof Event)
-//            }
-//        }
-//
-//    }
-
 //}
