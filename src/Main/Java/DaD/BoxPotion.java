@@ -8,6 +8,6 @@ public class BoxPotion extends Boxes{
     }
 
     public String show() {
-        return "---------------> I'M A POTION";
+        return "---------------> POTION";
     }
 }

@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import static DaD.Weapon.bow;
+import static DaD.Weapon.mace;
+import static DaD.Weapon.sword;
 import static java.lang.System.*;
 
 public abstract class Factory {
@@ -24,7 +27,7 @@ public abstract class Factory {
     private final static int NUM_BONUS = 1; // constant
     private final static int NUM_JOKER = 2; // constant
 
-    private static List<Event> map = new ArrayList<Event>();
+    protected static List<Event> map = new ArrayList<Event>();
     private static Sorcerer[] mySorcerers = new Sorcerer[NUM_SORCERER];
     private static Succubes[] mySuccubes = new Succubes[NUM_SUCCUBUS];
     private static Dragon[] myDragons = new Dragon[NUM_DRAGONS];
@@ -37,7 +40,7 @@ public abstract class Factory {
     private static BoxJoker[] myJoker = new BoxJoker[NUM_JOKER];
 
 
-    public static void createChar(Personnage characters[], Integer nb, ArrayList<Attack> objects, Integer nbAta) {
+    public static void createChar(Personnage characters[], Integer nb, ArrayList<AttackItem> objects, Integer nbAta) {
         String character;
         Personnage p = null;
 
@@ -60,36 +63,45 @@ public abstract class Factory {
         p.setName(giveName());
         p.setImage(giveImage());
         p.setLifeLevel(givelife());
-        p.setAttackForce(giveAttack());
+//        p.setAttackForce(p.getAttackForce());
+
         if (p.getType().equals("Warrior")) {
-            giveWeapon((Warrior) p, objects, nbAta);
-            nbAta++;
-            String more;
-            do {
-                out.println("Add another? (Y/N)");
-                more = sc.nextLine();
-                if (more.equals("y")) {
-                    giveWeapon((Warrior) p, objects, nbAta);
-                    nbAta++;
-                }
-            } while (more.equals("y"));
+            out.println("Choose your weapon");
+            for(int i=0;i <objects.size();i++) {
+                out.println((i+1)+". "+objects.get(i).getName());
+            }
+            giveWeapon((Warrior)p);
+//            String choice = sc.nextLine();
+//            switch (choice) {
+//                case "1":
+//                    Warrior.inventory[0] = bow;
+//                    break;
+//                case "2":
+//                    Warrior.inventory[0] = Weapon.mace;
+//                    break;
+//                case "3":
+//                    Warrior.inventory[0] = Weapon.sword;
+//                    break;
+//                default:
+//                    out.println("jhb");
+//            }
         } else {
             out.println("vkjsd");
-            giveSpell((Magician) p, objects, nbAta);
-            nbAta++;
-            String more;
-            do {
-                out.println("Add another? (Y/N)");
-                more = sc.nextLine();
-                if (more.equals("y")) {
-                    giveSpell((Magician) p, objects, nbAta);
-                    nbAta++;
-                }
-            } while (more.equals("y"));
+//            giveSpell((Magician) p, objects, nbAta);
+//            nbAta++;
+//            String more;
+//            do {
+//                out.println("Add another? (Y/N)");
+//                more = sc.nextLine();
+//                if (more.equals("y")) {
+//                    giveSpell((Magician) p, objects, nbAta);
+//                    nbAta++;
+//                }
+//            } while (more.equals("y"));
         }
     }
 
-    public static void modifyChar(Personnage characters[], ArrayList<Attack> objects, Integer nbAta) {
+    public static void modifyChar(Personnage characters[], ArrayList<AttackItem> objects, Integer nbAta) {
         String charTOchange;
         String modif;
         out.println("Which character you want to modify?");
@@ -109,33 +121,33 @@ public abstract class Factory {
             case "3":
                 p.setLifeLevel(givelife());
                 break;
-            case "4":
-                p.setAttackForce(giveAttack());
-                break;
-            case "5":
-                out.println("You want to:\n 1. Change \n 2. Delete?");
-                String chgDel = null;
-                chgDel = sc.nextLine();
-                if (chgDel.equals("1")) {
-                    out.println("Witch slot you want to change?");
-                    String nbSlot = null;
-                    nbSlot = sc.nextLine();
-                    try {
-                        if ((p.getType()).equals("Magician")) {
-                            giveSpell((Magician) p, objects, Integer.parseInt(nbSlot) - 1); // convert my character into a magician - cast notions
-                        } else {
-                            giveWeapon((Warrior) p, objects, Integer.parseInt(nbSlot) - 1);
-                        }
-                    } catch (java.lang.NumberFormatException e) {
-                        out.println("Bad entry");
-                    }
-                } else if (chgDel.equals("2")) {
-                    out.println("Witch slot you want to delete?");
-                    String nbSlot = null;
-                    nbSlot = sc.nextLine();
-                    ((Warrior) p).deleteSlot(Integer.parseInt(nbSlot) - 1);
-                }
-                break;
+//            case "4":
+//                p.setAttackForce(giveAttack());
+//                break;
+//            case "5":
+//                out.println("You want to:\n 1. Change \n 2. Delete?");
+//                String chgDel = null;
+//                chgDel = sc.nextLine();
+//                if (chgDel.equals("1")) {
+//                    out.println("Witch slot you want to change?");
+//                    String nbSlot = null;
+//                    nbSlot = sc.nextLine();
+//                    try {
+//                        if ((p.getType()).equals("Magician")) {
+//                            giveSpell((Magician) p, objects, Integer.parseInt(nbSlot) - 1); // convert my character into a magician - cast notions
+//                        } else {
+//                            giveWeapon((Warrior) p, objects, Integer.parseInt(nbSlot) - 1);
+//                        }
+//                    } catch (java.lang.NumberFormatException e) {
+//                        out.println("Bad entry");
+//                    }
+//                } else if (chgDel.equals("2")) {
+//                    out.println("Witch slot you want to delete?");
+//                    String nbSlot = null;
+//                    nbSlot = sc.nextLine();
+//                    ((Warrior) p).deleteSlot(Integer.parseInt(nbSlot) - 1);
+//                }
+//                break;
             default:
                 out.println("Invalid Choice");
         }
@@ -180,110 +192,93 @@ public abstract class Factory {
         return ll;
     }
 
-    // Function to give an attack force to the character
-    public static String giveAttack() {
-        out.println("Set your attack force!(between 0-100)");
-        String af = null;
-        boolean correct = false;
-        while (!correct) {
-            af = sc.nextLine();
-            try {
-                if (Integer.parseInt(af) < 0 || Integer.parseInt(af) > 100) {
-                    af = "50";
-                }
-                correct = true;
-            } catch (java.lang.NumberFormatException e) {
-                out.println("Wrong type of entry");
-            }
-        }
-        return af;
-    }
-
-    public static void giveWeapon(Warrior warrior, ArrayList<Attack> objects, Integer nbAta) {
+    public static void giveWeapon(Warrior warrior) {
         String weapon;
-        if (objects.size() > 0) {
-            out.println("Choose your weapon:");
-            First.showWeaponsList(objects);
             weapon = sc.nextLine();
-            warrior.setWeapon((Weapon) (objects.get(Integer.parseInt(weapon) - 1)), nbAta);
-            nbAta++;
-        } else {
-            out.println("You need to create a weapon first!\n1. Create now\n2. Create later");
-            String question = sc.nextLine();
-            if (question.equals("1")) {
-                attackObject(objects);
-                if (objects.get(0).getType() == "Weapon") {
-                    warrior.setWeapon((Weapon) (objects.get(0)), 0);
-                } else {
-                    out.println("Warriors can only use weapons and not spells");
-                }
+            switch (weapon) {
+                case "1":
+                    warrior.setWeapon(bow,0);
+                   // Warrior.inventory[0] = Weapon.allWeapons[0].toString();
+                    break;
+                case "2":
+                    warrior.setWeapon(mace,0);
+//                    Warrior.inventory[0] = Weapon.allWeapons[1].toString();
+                    break;
+                case "3":
+                    warrior.setWeapon(sword,0);
+//                    Warrior.inventory[0] = Weapon.allWeapons[2].toString();
+                    break;
+                default:
+                    out.println("no weapon");
+                    break;
             }
-        }
+//            warrior.setWeapon((Weapon) (objects.get(Integer.parseInt(weapon) - 1)), nbAta);
+//            nbAta++;
     }
 
     // Method to give a spell to the magician
-    public static void giveSpell(Magician magician, ArrayList<Attack> objects, Integer nbAta) {
-        String spell;
-        if (objects.size() > 0) {
-            out.println("Choose your spell:");
-            First.showWeaponsList(objects);
-            spell = sc.nextLine();
-            magician.setSpell((Spell) (objects.get(Integer.parseInt(spell) - 1)), nbAta);
-            nbAta++;
-        } else {
-            out.println("You need to create a weapon first!\n1. Create now\n2. Create later");
-            String question = sc.nextLine();
-            if (question.equals("1")) {
-                attackObject(objects);
-                if (objects.get(0).getType() == "Spell") {
-                    magician.setSpell((Spell) (objects.get(0)), 0);
-                } else {
-                    out.println("Magicians can only use spells and not weapons");
-                }
-            }
-        }
-    }
-
-    public static void attackObject(ArrayList<Attack> objects) {
-        String attackObject;
-        String more = null;
-        Attack weapon = null;
-        do {
-            out.println("1. Create weapon\n2. Create spell");
-            attackObject = sc.nextLine();
-            if (attackObject.equals("1")) {
-                do {
-                    out.println("Create your Weapon!\nGive it a name:");
-                    String weapon2 = sc.nextLine();
-                    out.println("Give it an attack power:");
-                    String power = sc.nextLine();
-                    weapon = new Weapon(weapon2, power);
-                    weapon.setType("Weapon");
-                    objects.add(weapon);
-                    for (int i = 0; i < objects.size(); i++) {
-                        out.println(objects.get(i));
-                    }
-                    out.println("Do you want to create more (Y for yes)? ");
-                    more = sc.nextLine().toUpperCase();
-                } while (more.equals("Y"));
-            } else if (attackObject.equals("2")) {
-                do {
-                    out.println("Create your Spell!\nGive it a name:");
-                    String weapon2 = sc.nextLine();
-                    out.println("Give it an attack power:");
-                    String power = sc.nextLine();
-                    weapon = new Spell(weapon2, power);
-                    weapon.setType("Spell");
-                    objects.add(weapon);
-                    for (int i = 0; i < objects.size(); i++) {
-                        out.println(objects.get(i));
-                    }
-                    out.println("Do you want to create more (Y for yes)? ");
-                    more = sc.nextLine().toUpperCase();
-                } while (more.equals("Y"));
-            }
-        } while (!attackObject.equals("1") && !attackObject.equals("2"));
-    }
+//    public static void giveSpell(Magician magician, ArrayList<AttackItem> objects, Integer nbAta) {
+//        String spell;
+//        if (objects.size() > 0) {
+//            out.println("Choose your spell:");
+//            First.showWeaponsList();
+//            spell = sc.nextLine();
+//            magician.setSpell((Spell) (objects.get(Integer.parseInt(spell) - 1)), nbAta);
+//            nbAta++;
+//        } else {
+//            out.println("You need to create a weapon first!\n1. Create now\n2. Create later");
+//            String question = sc.nextLine();
+//            if (question.equals("1")) {
+//                attackObject(objects);
+//                if (objects.get(0).getType() == "Spell") {
+//                    magician.setSpell((Spell) (objects.get(0)), 0);
+//                } else {
+//                    out.println("Magicians can only use spells and not weapons");
+//                }
+//            }
+//        }
+//    }
+//******************************************* Function to create weapons ********************************************
+//    public static void attackObject(ArrayList<AttackItem> objects) {
+//        String attackObject;
+//        String more = null;
+//        AttackItem weapon = null;
+//        do {
+//            out.println("1. Create weapon\n2. Create spell");
+//            attackObject = sc.nextLine();
+//            if (attackObject.equals("1")) {
+//                do {
+//                    out.println("Create your Weapon!\nGive it a name:");
+//                    String weapon2 = sc.nextLine();
+//                    out.println("Give it an attack power:");
+//                    String power = sc.nextLine();
+//                    weapon = new Weapon(weapon2, power);
+//                    weapon.setType("Weapon");
+//                    objects.add(weapon);
+//                    for (int i = 0; i < objects.size(); i++) {
+//                        out.println(objects.get(i));
+//                    }
+//                    out.println("Do you want to create more (Y for yes)? ");
+//                    more = sc.nextLine().toUpperCase();
+//                } while (more.equals("Y"));
+//            } else if (attackObject.equals("2")) {
+//                do {
+//                    out.println("Create your Spell!\nGive it a name:");
+//                    String weapon2 = sc.nextLine();
+//                    out.println("Give it an attack power:");
+//                    String power = sc.nextLine();
+//                    weapon = new Spell(weapon2, power);
+//                    weapon.setType("Spell");
+//                    objects.add(weapon);
+//                    for (int i = 0; i < objects.size(); i++) {
+//                        out.println(objects.get(i));
+//                    }
+//                    out.println("Do you want to create more (Y for yes)? ");
+//                    more = sc.nextLine().toUpperCase();
+//                } while (more.equals("Y"));
+//            }
+//        } while (!attackObject.equals("1") && !attackObject.equals("2"));
+//    }
 
     public static void generateMap() {
         startPos = 0;
@@ -333,9 +328,15 @@ public abstract class Factory {
     }
 
     public static BoxWeapon[] generateWeaponBoxes() {
-        for (int i = 0; i < NUM_WEAPONS; i++) {
-            myWeapons[i] = new BoxWeapon();
-        }
+        String weapon1 = "Mace";
+        String weapon2 = "Sword";
+
+
+//        for (int i = 0; i < NUM_WEAPONS; i++) {
+            myWeapons[0] = new BoxWeapon(weapon1);
+            myWeapons[1] = new BoxWeapon(weapon2);
+
+//        }
         return myWeapons;
     }
 
@@ -394,18 +395,18 @@ public abstract class Factory {
         placeDragons();
         placeSuccubes();
         for (int i = 0; i <= MAP_LENGTH; i++) {
-            out.println(map.get(i).show() + " " + i);
+            out.println("Case " + i + " " + map.get(i).show());
         }
     }
 
     private static void placeMalus() {
         int placement = 0;
-        for (int i = 0; i < NUM_MALUS; i++){
+        for (int i = 0; i < NUM_MALUS; i++) {
             boolean malusPlaced = false;
             do {
                 Random place = new Random();
                 placement = place.nextInt(MAP_LENGTH - 1) + 1;
-                if (map.get(placement).getClass().equals(Event.class)){
+                if (map.get(placement).getClass().equals(Event.class)) {
                     map.set(placement, myMalus[i]);
                     malusPlaced = true;
                 }
@@ -415,12 +416,12 @@ public abstract class Factory {
 
     private static void placeBonus() {
         int placement = 0;
-        for (int i = 0; i < NUM_BONUS; i++){
+        for (int i = 0; i < NUM_BONUS; i++) {
             boolean bonusPlaced = false;
             do {
                 Random place = new Random();
                 placement = place.nextInt(MAP_LENGTH - 1) + 1;
-                if (map.get(placement).getClass().equals(Event.class)){
+                if (map.get(placement).getClass().equals(Event.class)) {
                     map.set(placement, myMalus[i]);
                     bonusPlaced = true;
                 }
@@ -430,12 +431,12 @@ public abstract class Factory {
 
     private static void placeJoker() {
         int placement = 0;
-        for (int i = 0; i < NUM_JOKER; i++){
+        for (int i = 0; i < NUM_JOKER; i++) {
             boolean jokerPlaced = false;
             do {
                 Random place = new Random();
                 placement = place.nextInt(MAP_LENGTH - 1) + 1;
-                if (map.get(placement).getClass().equals(Event.class)){
+                if (map.get(placement).getClass().equals(Event.class)) {
                     map.set(placement, myJoker[i]);
                     jokerPlaced = true;
                 }
@@ -445,12 +446,12 @@ public abstract class Factory {
 
     private static void placePotions() {
         int placement = 0;
-        for (int i = 0; i < NUM_POTIONS; i++){
+        for (int i = 0; i < NUM_POTIONS; i++) {
             boolean potionPlaced = false;
             do {
                 Random place = new Random();
                 placement = place.nextInt(MAP_LENGTH - 1) + 1;
-                if (map.get(placement).getClass().equals(Event.class)){
+                if (map.get(placement).getClass().equals(Event.class)) {
                     map.set(placement, myPotions[i]);
                     potionPlaced = true;
                 }
@@ -460,12 +461,12 @@ public abstract class Factory {
 
     public static void placeShields() {
         int placement = 0;
-        for (int i = 0; i < NUM_SHIELDS; i++){
+        for (int i = 0; i < NUM_SHIELDS; i++) {
             boolean shieldPlaced = false;
             do {
                 Random place = new Random();
                 placement = place.nextInt(MAP_LENGTH - 1) + 1;
-                if (map.get(placement).getClass().equals(Event.class)){
+                if (map.get(placement).getClass().equals(Event.class)) {
                     map.set(placement, myShields[i]);
                     shieldPlaced = true;
                 }
@@ -475,12 +476,12 @@ public abstract class Factory {
 
     public static void placeWeapons() {
         int placement = 0;
-        for (int i = 0; i < NUM_WEAPONS; i++){
+        for (int i = 0; i < NUM_WEAPONS; i++) {
             boolean weaponPlaced = false;
             do {
                 Random place = new Random();
                 placement = place.nextInt(MAP_LENGTH - 1) + 1;
-                if (map.get(placement).getClass().equals(Event.class)){
+                if (map.get(placement).getClass().equals(Event.class)) {
                     map.set(placement, myWeapons[i]);
                     weaponPlaced = true;
                 }
@@ -490,7 +491,7 @@ public abstract class Factory {
 
     public static void placeSpells() {
         int placement = 0;
-        for (int i = 0; i < NUM_SPELLS; i++){
+        for (int i = 0; i < NUM_SPELLS; i++) {
             boolean spellPlaced = false;
             do {
                 Random place = new Random();

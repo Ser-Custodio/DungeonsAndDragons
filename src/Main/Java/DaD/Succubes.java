@@ -6,6 +6,6 @@ public class Succubes extends Enemies {
     }
 
     public String show(){
-        return "---------------> I'M A SUCCUBE";
+        return "---------------> SUCCUBE with an attack force of: "+ damage;
     }
 }

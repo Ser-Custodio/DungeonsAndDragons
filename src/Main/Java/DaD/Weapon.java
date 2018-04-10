@@ -1,17 +1,16 @@
 package DaD;
 
-/**
- * The type Weapon.
- */
-public class Weapon extends Attack {
+public class Weapon extends AttackItem {
 
-    /**
-     * Instantiates a new Weapon.
-     *
-     * @param pName  the p name
-     * @param pPower the p power
-     */
+
+    //protected static Weapon allWeapons[] = {bow, mace, sword};
+
     public Weapon(String pName, String pPower) {
         super(pName, pPower);
     }
+
+    public static Weapon bow = new Weapon("Bow","50");
+    public static Weapon mace = new Weapon("Mace","30");
+    public static Weapon sword = new Weapon("Sword","25");
+
 }

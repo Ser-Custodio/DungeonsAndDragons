@@ -8,6 +8,6 @@ public class BoxShield extends Boxes{
     }
 
     public String show() {
-        return "---------------> I'M A SHIELD";
+        return "---------------> SHIELD";
     }
 }

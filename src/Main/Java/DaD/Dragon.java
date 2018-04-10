@@ -6,6 +6,6 @@ public class Dragon extends Enemies{
     }
 
     public String show(){
-        return "---------------> I'M A DRAGON";
+        return "---------------> DRAGON with an attack force of: "+ damage;
     }
 }

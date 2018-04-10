@@ -3,7 +3,7 @@ package DaD;
 /**
  * The type Spell.
  */
-public class Spell extends Attack {
+public class Spell extends AttackItem {
 
     /**
      * Instantiates a new Spell.

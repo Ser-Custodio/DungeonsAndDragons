@@ -5,6 +5,6 @@ public class Sorcerer extends Enemies {
         damage = newDamage;
     }
     public String show(){
-        return "---------------> I'M A SORCERER";
+        return "---------------> SORCERER with an attack force of: "+ damage;
     }
 }

@@ -1,13 +1,22 @@
 package DaD;
 
 public class BoxJoker extends Boxes {
-    public int life = 0;
+
+    private int life = 0;
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
 
     public BoxJoker(int addLife) {
         life = addLife;
     }
 
     public String show() {
-        return "---------------> I'M A JOKER, +"+life+" of life";
+        return "---------------> JOKER, you win "+life+" of life";
     }
 }

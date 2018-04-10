@@ -4,7 +4,7 @@ package DaD;
  * The type Magician.
  */
 public class Magician extends Personnage {
-    private Spell spells[] = new Spell[NB_ATTACKS];
+    private Spell spells[] = new Spell[NB_ITEMS];
     private String potion;
 
     /**
@@ -38,7 +38,7 @@ public class Magician extends Personnage {
     public String toString() {
         String result = super.toString();
         result = result + "\n5. Spells:\n";
-        for (int i = 0; i < NB_ATTACKS; i++){
+        for (int i = 0; i < NB_ITEMS; i++){
             result = result + "Slot "+(i+1)+": ";
             if (spells[i] != null) {
                 result = result + spells[i].toString()+"\n";
