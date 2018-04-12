@@ -2,7 +2,7 @@ package DaD;
 
 public class Boxes extends Event {
 
-    public String show(){
-        return "I'm a surprise box";
+    public void show(){
+        System.out.println("I'm a surprise box");
     }
 }

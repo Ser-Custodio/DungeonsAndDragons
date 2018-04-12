@@ -20,10 +20,16 @@ public class First {
         String userMenu;
 
         out.println("Welcome to Dongeons and Dragons!");
-        Factory.generateMap();
-        Factory.generateEvents();
-        Factory.placeEvents();
-        do {
+        Factory.createChar(characters,nb,objects,nbAta);
+
+        Game game = new Game();
+        game.generateEvents();
+
+        Factory.generateMap(game.MAP_LENGTH, game.map);
+        game.placeEvents();
+        out.println("************************************************************************************************************");
+        game.newGame(characters[0]);
+        /*do {
 
             out.println("\nWhat do you want to do?\n1. Create new character\n2. View characters list\n3. Change a character\n" +
                     "4. AttackItem \n5. Create weapon or spell\n6. View weapons list \n7. Play\n10. Exit\n");
@@ -59,34 +65,11 @@ public class First {
 //                    }
 //                    break;
                 case "7":
-                    if(characters[0] != null) {
-                        playGame(characters[0]);
-                    }else{
+                    if (characters[0] != null) {
+                        game.newGame(characters[0]);
+                    } else {
                         out.println("No characters");
                     }
-//                    out.println("You are in position " + Factory.startPos);
-//                    int rollValue = Factory.rollDie();
-//                    out.println("You rolled: " + rollValue);
-//                    int newPosition = Factory.startPos + rollValue;
-//                    Factory.startPos = newPosition;
-//                    if (newPosition < 64) {
-//                        if (!Factory.map.get(newPosition).getClass().equals(Event.class)) {
-//                            out.println("You are in square " + newPosition + "\n You found " + Factory.map.get(newPosition).show());
-//                            if (Factory.map.get(newPosition).getClass().equals(BoxMalus.class)) {
-//                                Factory.startPos = newPosition - 5;
-//                            } else if (Factory.map.get(newPosition).getClass().equals(BoxBonus.class)) {
-//                                Factory.startPos = newPosition + 5;
-//                            }else if(Factory.map.get(newPosition).getClass().equals(BoxJoker.class)) {
-//                                out.println("Life added");
-//                                //add life points to the life level of the character
-//                            }
-//                        }else {
-//                                out.println("You are in square " + newPosition);
-//                        }
-//                    } else {
-//                            out.println("Game Over --- YOU WIN");
-//                            Factory.startPos = 0;
-//                    }
                     break;
 //                case "8":
 //
@@ -98,47 +81,7 @@ public class First {
                     out.println("Invalid Choice");
             }
         } while (!userMenu.equals("10"));
-    }
-
-    public static void playGame(Personnage p){
-        out.println(p.getName() + " You are in position " + Factory.startPos);
-        int rollValue = Factory.rollDie();
-        out.println("You rolled: " + rollValue);
-        int newPosition = Factory.startPos + rollValue;
-        Factory.startPos = newPosition;
-        if (newPosition < 64) {
-            if (!Factory.map.get(newPosition).getClass().equals(Event.class)) {
-                out.println("You are in square " + newPosition + "\n You found " + Factory.map.get(newPosition).show());
-                if (Factory.map.get(newPosition).getClass().equals(BoxMalus.class)) {
-                    Factory.startPos = newPosition - 5;
-                } else if (Factory.map.get(newPosition).getClass().equals(BoxBonus.class)) {
-                    Factory.startPos = newPosition + 5;
-                }else if(Factory.map.get(newPosition).getClass().equals(BoxJoker.class)) {
-                    BoxJoker boxJoker = (BoxJoker) Factory.map.get(newPosition);
-                    if(boxJoker.getLife() == 50) {
-                        int currentLife = Integer.parseInt(p.getLifeLevel());
-                        int newLife = currentLife + 50;
-                        p.setLifeLevel(String.valueOf(newLife));
-                    }else{
-                        int currentLife = Integer.parseInt(p.getLifeLevel());
-                        int newLife = currentLife + 25;
-                        p.setLifeLevel(String.valueOf(newLife));
-                    }
-                }else if(Factory.map.get(newPosition).getClass().equals(BoxWeapon.class)){
-                    BoxWeapon boxWeapon = (BoxWeapon)Factory.map.get(newPosition);
-                    if(boxWeapon.getName().equals("Mace")) {
-                        Warrior.setWeapon(Weapon.mace, 1);
-                    }else{
-                        Warrior.setWeapon(Weapon.sword, 2);
-                    }
-                }
-            }else {
-                out.println("You are in square " + newPosition);
-            }
-        } else {
-            out.println("Game Over --- YOU WIN");
-            Factory.startPos = 0;
-        }
+    */
     }
 
     // Shows list of characters
@@ -197,29 +140,7 @@ public class First {
             }
         }
     }
-
-//    public static void weaponDetails(ArrayList<AttackItem> objects) {
-//        String details;
-//        try {
-//            do {
-//                out.println("Which weapon you want to check? (0 to exit)");
-//                details = sc.nextLine();
-//                if (details.equals("0")) {
-//                    out.println("exiting ...");
-//                } else {
-//                    int index = Integer.parseInt(details) - 1;
-//                    if (objects.get(index) != null) {
-//                        out.println(objects.get(index));
-//                    }
-//                }
-//            } while (!details.equals("0"));
-//        } catch (java.lang.NumberFormatException | java.lang.IndexOutOfBoundsException e) {
-//            out.println("Wrong type of entry");
-//        }
-//    }
 }
-
-
 //    public void attack(Personnage characters[]) {
 //        if (characters[0] != null) {
 //            out.println("ATTACK");
@@ -233,9 +154,3 @@ public class First {
 //            out.println("No usable characters");
 //        }
 //    }
-//    public int rollDie(){
-//        Random roll = new Random();
-//        int die = roll.nextInt(6)+1;
-//        return die;
-//    }
-//}

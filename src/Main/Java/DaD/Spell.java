@@ -11,7 +11,7 @@ public class Spell extends AttackItem {
      * @param pName  the p name
      * @param pPower the p power
      */
-    public Spell(String pName, String pPower) {
+    public Spell(String pName, int pPower) {
         super(pName, pPower);
     }
 }

@@ -3,10 +3,10 @@ package DaD;
 
 public abstract class AttackItem {
     private String name;
-    private String power;
-    private String type;
+    private int power;
+    private String type; // weapon or spell
 
-    public AttackItem(String pName, String pPower) {
+    public AttackItem(String pName, int pPower) {
         name = pName;
         power = pPower;
     }
@@ -19,7 +19,7 @@ public abstract class AttackItem {
         return name;
     }
 
-    public String getPower() {
+    public int getPower() {
         return power;
     }
 
@@ -31,7 +31,7 @@ public abstract class AttackItem {
         name = pName;
     }
 
-    public void setPower(String pPower) {
+    public void setPower(int pPower) {
         power = pPower;
     }
 

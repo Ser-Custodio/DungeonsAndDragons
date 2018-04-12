@@ -3,8 +3,11 @@ package DaD;
 public class Event {
 
 
-    public String show() {
-        return "Empty space";
+    public void show() {
+        System.out.println("Empty space");
+    }
+    public void action(Personnage p){
+
     }
 }
 

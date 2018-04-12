@@ -1,8 +1,10 @@
 package DaD;
 
 public class BoxSpell extends Boxes {
+    boolean useWarrior = false;
+    boolean useMagician = true;
 
-    public String show(){
-        return "---------------> SPELL";
+    public void show(){
+        System.out.println( "---------------> SPELL");
     }
 }

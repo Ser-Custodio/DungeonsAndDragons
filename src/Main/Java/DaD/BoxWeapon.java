@@ -2,6 +2,9 @@ package DaD;
 
 public class BoxWeapon extends Boxes {
     private  String name = "";
+    boolean useWarrior = true;
+    boolean useMagician = false;
+    boolean used = false;
 
     public String getName() {
         return name;
@@ -14,7 +17,7 @@ public class BoxWeapon extends Boxes {
     public BoxWeapon(String pname){
         name = pname;
     }
-    public String show(){
-        return "---------------> WEAPON = "+name;
+    public void show(){
+        System.out.println("---------------> WEAPON = "+name);
     }
 }

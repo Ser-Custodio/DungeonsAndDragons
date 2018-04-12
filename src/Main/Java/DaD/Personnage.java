@@ -9,15 +9,29 @@ import static java.lang.System.*;
  */
 public abstract class Personnage {
     private String name;
+    private int position = 0;
+
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
     private String image;
     private String type;
-    protected static String lifeLevel;
-    private String attackForce = "15";
-    protected static final int NB_ITEMS = 3;
+    protected int lifeLevel;
+    private int attackForce = 15;
+    protected static final int NB_ITEMS = 5;
     private static Scanner sc = new Scanner(in);
 
 
-//Getters
+    public void move(int rollDice) {
+        this.position = this.position + rollDice;
+    }
+
+    //Getters
     public String getType() {
         return type;
     }
@@ -30,16 +44,16 @@ public abstract class Personnage {
         return image;
     }
 
-    public static String getLifeLevel() {
+    public int getLifeLevel() {
         return lifeLevel;
     }
 
-    public String getAttackForce() {
+    public int getAttackForce() {
         return attackForce;
     }
 
 
-// Setters
+    // Setters
     public void setType(String pType) {
         this.type = pType;
     }
@@ -52,14 +66,18 @@ public abstract class Personnage {
         this.image = pImage;
     }
 
-    public static void setLifeLevel(String pLife) {
+    public void setLifeLevel(int pLife) {
         lifeLevel = pLife;
     }
 
-    public void setAttackForce(String pForce) {
+    public void setAttackForce(int pForce) {
         this.attackForce = pForce;
     }
 
+    public void interactWithEvent(Event event) {
+        event.show();
+        event.action(this);
+    }
 
     public String toString() {
         return "Your character is a " + getType() + "\n1. Name:" + getName() + "\n2. Image: " + getImage() + "\n3. Life Level: " + getLifeLevel() + "\n4. AttackItem Force: " + getAttackForce();
